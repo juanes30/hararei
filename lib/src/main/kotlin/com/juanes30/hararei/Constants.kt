@@ -1,6 +1,6 @@
-package com.efycolombia.hararei
+package com.juanes30.hararei
 
-import com.efycolombia.hararei.model.Holiday
+import com.juanes30.hararei.model.Holiday
 
 object Constants {
     private const val MONDAY = 1

@@ -1,3 +1,3 @@
-package com.efycolombia.hararei.model
+package com.juanes30.hararei.model
 
 data class Holiday(val day: String, val daysToSum: Int, val celebration: String)
