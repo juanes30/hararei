@@ -1,6 +1,6 @@
-package com.juanes30.hararei
+package co.devspark.hararei
 
-import com.juanes30.hararei.model.Holiday
+import co.devspark.hararei.model.Holiday
 
 object Constants {
     private const val MONDAY = 1

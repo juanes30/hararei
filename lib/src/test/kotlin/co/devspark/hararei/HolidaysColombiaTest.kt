@@ -8,10 +8,10 @@ import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 import kotlin.test.expect
 
-class HolidaysCoTest {
+class HolidaysColombiaTest {
     @Test
     fun test_there_data() {
-        val classUnderTest = HolidaysCo()
+        val classUnderTest = HolidaysColombia()
         assertTrue(
             classUnderTest.getByYear("2021").count() > 0,
             "someLibraryMethod should return 'true'"
@@ -20,7 +20,7 @@ class HolidaysCoTest {
 
     @Test
     fun test_exception_year_is_not_number() {
-        val classUnderTest = HolidaysCo()
+        val classUnderTest = HolidaysColombia()
         assertFailsWith<IllegalArgumentException>(message = "The year is not a number", block = {
             classUnderTest.getByYear("abcd")
         })
@@ -28,7 +28,7 @@ class HolidaysCoTest {
 
     @Test
     fun test_exception_year_is_empty() {
-        val classUnderTest = HolidaysCo()
+        val classUnderTest = HolidaysColombia()
         assertFailsWith<IllegalArgumentException>(message = "No year provided", block = {
             classUnderTest.getByYear()
         })
@@ -36,7 +36,7 @@ class HolidaysCoTest {
 
     @Test
     fun test_success_year_2021() {
-        val classUnderTest = HolidaysCo()
+        val classUnderTest = HolidaysColombia()
         val results = classUnderTest.getByYear("2021")
 
         assert(results.count() > 0)
@@ -49,7 +49,7 @@ class HolidaysCoTest {
 
     @Test
     fun test_success_year_2022() {
-        val classUnderTest = HolidaysCo()
+        val classUnderTest = HolidaysColombia()
         val results = classUnderTest.getByYear("2022")
 
         assert(results.count() > 0)

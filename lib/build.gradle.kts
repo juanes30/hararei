@@ -5,6 +5,8 @@
  * For more details take a look at the 'Building Java & JVM projects' chapter in the Gradle
  * User Manual available at https://docs.gradle.org/7.0.1/userguide/building_java_projects.html
  */
+import java.io.FileInputStream
+import java.util.*
 
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
@@ -12,12 +14,22 @@ plugins {
 
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
+    `maven-publish`
+    signing
 }
 
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+val githubProperties = Properties()
+githubProperties.load(FileInputStream(rootProject.file("maven.properties")))
 
 dependencies {
     // Align versions of all Kotlin components
@@ -37,4 +49,81 @@ dependencies {
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api("org.apache.commons:commons-math3:3.6.1")
+}
+
+val pomUrl = "https://github.com/juanes30/hararei"
+val pomScmUrl = "https://github.com/juanes30/hararei"
+val pomIssueUrl = "https://github.com/juanes30/hararei/issues"
+val pomDesc = "Holidays Colombia"
+val pomScmConnection = "scm:git:git://github.com/juanes30/hararei.git"
+val pomScmDevConnection = "scm:git:git://github.com/juanes30/hararei.git"
+
+val pomLicenseName = "Apache License 2.0"
+val pomLicenseUrl = "https://github.com/juanes30/hararei/blob/main/LICENSE"
+val pomLicenseDist = "repo"
+
+val pomDeveloperId = "juanes30"
+val pomDeveloperName = "Juan Londoño"
+
+group = "co.devspark"
+version = "1.0.1"
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+// gpg --keyserver hkp://keyserver.ubuntu.com --send-keys key-id
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            groupId = "co.devspark"
+            artifactId = "hararei"
+            version = "1.0.1"
+
+            from(components["java"])
+
+            pom.withXml {
+                asNode().apply {
+                    appendNode("description", pomDesc)
+                    appendNode("name", rootProject.name)
+                    appendNode("url", pomUrl)
+                    appendNode("licenses").appendNode("license").apply {
+                        appendNode("name", pomLicenseName)
+                        appendNode("url", pomLicenseUrl)
+                        appendNode("distribution", pomLicenseDist)
+                    }
+                    appendNode("developers").appendNode("developer").apply {
+                        appendNode("id", pomDeveloperId)
+                        appendNode("name", pomDeveloperName)
+                    }
+                    appendNode("scm").apply {
+                        appendNode("url", pomScmUrl)
+                        appendNode("connection", pomScmConnection)
+                        appendNode("developerConnection", pomScmDevConnection)
+                    }
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "OSSRH"
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = (githubProperties["gpr.username"] ?: System.getenv("MAVEN_USERNAME")).toString()
+                password = (githubProperties["gpr.password"] ?: System.getenv("MAVEN_PASSWORD")).toString()
+            }
+        }
+    }
+}
+
+signing {
+    sign(publishing.publications["mavenJava"])
+}
+
+tasks.javadoc {
+    if (JavaVersion.current().isJava9Compatible) {
+        (options as StandardJavadocDocletOptions).addBooleanOption("html5", true)
+    }
 }

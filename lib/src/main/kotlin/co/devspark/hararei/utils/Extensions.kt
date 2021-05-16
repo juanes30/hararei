@@ -1,4 +1,4 @@
-package com.juanes30.hararei.utils
+package co.devspark.hararei.utils
 
 import java.text.SimpleDateFormat
 import java.util.*

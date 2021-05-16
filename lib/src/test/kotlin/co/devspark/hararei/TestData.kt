@@ -1,4 +1,4 @@
-package com.juanes30.hararei
+package co.devspark.hararei
 
 object TestData {
     val holiday2021TestData = listOf(

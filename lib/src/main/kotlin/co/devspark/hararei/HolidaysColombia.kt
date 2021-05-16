@@ -8,7 +8,7 @@ import co.devspark.hararei.utils.*
 import java.util.*
 import kotlin.math.floor
 
-class HolidaysCo {
+class HolidaysColombia {
     fun getByYear(year: String? = null): List<HolidayDTO> {
         validations(year)
         val normalHolidays = Constants.HOLIDAYS.map {
