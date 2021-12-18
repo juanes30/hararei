@@ -66,7 +66,7 @@ val pomDeveloperId = "juanes30"
 val pomDeveloperName = "Juan Londoño"
 
 group = "co.devspark"
-version = "1.0.1"
+version = "1.0.2"
 
 java {
     withJavadocJar()
@@ -78,7 +78,7 @@ publishing {
         create<MavenPublication>("mavenJava") {
             groupId = "co.devspark"
             artifactId = "hararei"
-            version = "1.0.1"
+            version = "1.0.2"
 
             from(components["java"])
 

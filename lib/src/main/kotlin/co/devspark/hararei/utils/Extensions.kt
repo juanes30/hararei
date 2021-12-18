@@ -10,31 +10,36 @@ fun String.toDate(format: String = "yyyy-MM-dd"): Date {
 }
 
 fun Date.getUTCDay(): Int {
-    val calendar = Calendar.getInstance()
+    val timeZone = TimeZone.getTimeZone("America/Bogota")
+    val calendar = Calendar.getInstance(timeZone)
     calendar.time = this
     return calendar.get(Calendar.DAY_OF_WEEK)
 }
 
 fun Date.getDayOfMonth(): Int {
-    val calendar = Calendar.getInstance()
+    val timeZone = TimeZone.getTimeZone("America/Bogota")
+    val calendar = Calendar.getInstance(timeZone)
     calendar.time = this
     return calendar.get(Calendar.DAY_OF_MONTH)
 }
 
 fun Date.year(): Int {
-    val calendar = Calendar.getInstance()
+    val timeZone = TimeZone.getTimeZone("America/Bogota")
+    val calendar = Calendar.getInstance(timeZone)
     calendar.time = this
     return calendar.get(Calendar.YEAR)
 }
 
 fun Date.month(): Int {
-    val calendar = Calendar.getInstance()
+    val timeZone = TimeZone.getTimeZone("America/Bogota")
+    val calendar = Calendar.getInstance(timeZone)
     calendar.time = this
     return calendar.get(Calendar.MONTH)
 }
 
 fun Date.addDay(days: Int = 1): Date {
-    val calendar = Calendar.getInstance()
+    val timeZone = TimeZone.getTimeZone("America/Bogota")
+    val calendar = Calendar.getInstance(timeZone)
     calendar.time = this
     calendar.add(Calendar.DATE, days)
     return calendar.time
